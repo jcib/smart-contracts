@@ -1,31 +1,21 @@
-pragma solidity ^0.4.24;
+pragma solidity *0.4.24;
 
-import "./Ownable.sol";
-
-contract MessageStore is Ownable {
+contract Ownable {
     
-    string private message;
+    address internal owner;
     
-    function setMessage(string newMessage) public payable {
-        require(msg.value == 3 ether);
-        message = newMessage;
+    constructor() public {
+        
+        owner = msg.sender;
+        
+        
     }
     
-    function getMessage() public view returns (string) {
-        return message;
+    modifier isOwner(){
+        
+        require(owner == msg.sender);
+        _;
+        
     }
     
-    function getBalance() public view returns (uint) {
-        return address(this).balance;
-    }
-    
-    function getBalanceInEther() public view returns (uint) {
-        return getBalance() / 1e18;
-    }
-    
-    function transfer(uint amount) public isOwner {
-        require(address(this).balance >= amount);
-        owner.transfer(amount);
-    }
-         
-} 
+}
