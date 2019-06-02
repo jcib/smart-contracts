@@ -11,8 +11,6 @@ contract UsersContract {
     mapping (address => User ) private users;
     mapping (address => bool) private joinedUsers;
     address[] total;
-    
-    event onUserJoined (address, string);
 
 
     function join(string name, string surName) public {
@@ -23,8 +21,6 @@ contract UsersContract {
         user.surName = surName;
         joinedUsers[msg.sender] = true;
         total.push(msg.sender);
-        
-        onUserJoined(msg.sender,string(abi.encodePacked(name," ", surName)));
 
     }
 
@@ -47,4 +43,5 @@ contract UsersContract {
         return total.length;
 
     }
+
 }
